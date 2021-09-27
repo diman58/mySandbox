@@ -2,10 +2,12 @@ package Services;
 
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class StringManager {
+
     public static String getXpath(WebElement element) {
 
         int start = 0;
@@ -26,5 +28,15 @@ public class StringManager {
         }
 
         return xPath;
+    }
+
+    public static List<String> convertListOfElementsInListOfValues(List<WebElement> list) {
+        List<String> list1 = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            list1.add(list.get(i).getText());
+        }
+
+        return list1;
     }
 }

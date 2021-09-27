@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class IndexPage extends BasePage{
 
     public IndexPage(WebDriver driver) {
@@ -32,4 +34,10 @@ public class IndexPage extends BasePage{
 
     @FindBy(xpath = "//button[contains(@class,'fOscpJ')]")
     public static WebElement createAccountBtn;
+
+    @FindBy(xpath = "//button")
+    public static WebElement menu;
+
+    @FindBy(xpath = "//span[@class='sc-dTdPqK iCcvdp']")
+    public static List<WebElement> listOfTopics;
 }
