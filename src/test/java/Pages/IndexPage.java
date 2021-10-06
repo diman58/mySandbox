@@ -39,5 +39,36 @@ public class IndexPage extends BasePage{
     public static WebElement menu;
 
     @FindBy(xpath = "//span[@class='sc-dTdPqK iCcvdp']")
-    public static List<WebElement> listOfTopics;
+    public static List<WebElement> listOfTopicsOnTheLeftMenu;
+
+    @FindBy(xpath = "//a[@role='button']")//span[@class='sc-jlyJG fFQcEb']
+    public static List<WebElement> listOfTopicsInTheMid;
+
+    @FindBy(xpath = "//button[@class='slick-arrow slick-next']")
+    public static WebElement nextArrow;
+
+    @FindBy(xpath = "//div[@class='sc-krDsej kqgXqB']")//span[@class='sc-dTdPqK iCcvdp' and text()='Technology']
+    public static WebElement technologyBtnOnTheLeftMenu;
+
+    @FindBy(xpath = "//button[@aria-label='Close']")
+    public static WebElement closeLeftMenuBtn;
+
+    @FindBy(xpath = "//div[@class='ant-drawer-body']")
+    public static WebElement leftMenuBody;
+
+    @FindBy(xpath = "//button[@class='sc-elNKlv boikXS']")
+    public static WebElement messagesBtn;
+
+    @FindBy(xpath = "//strong[text()='Messages']")
+    public static WebElement chatMessages;
+
+    @FindBy(xpath = "//button[@class='text-chat-headerstyled__ControlButton-u9v265-2 hNQTPA']")
+    public static List<WebElement> chatBtns;
+
+    @FindBy(xpath = "//aside[contains(@class,'messenger')]")
+    public static WebElement chatWindow;
+
+    @FindBy(xpath = "//a[@class='ant-btn sc-elJkPf lHuZJ sc-kQsIoO sc-hjRWVT gUIxhL']")
+    public static WebElement showAllCourses;
+
 }

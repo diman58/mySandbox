@@ -20,4 +20,9 @@ public class DriverManager {
         driver.manage().window().maximize();
         return driver;
     }
+
+    public static WebDriver getnextDriver() {
+        driver = null;
+        return DriverManager.getDriver();
+    }
 }
