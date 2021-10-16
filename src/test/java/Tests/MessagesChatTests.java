@@ -18,12 +18,12 @@ public class MessagesChatTests {
         driver = DriverManager.getDriver();
     }
 
-    @Test
+    @Test(groups = {"cleanBrowser"})
     public void checkMessageBth() {
-        logIn(driver)
+        logIn()
                 .click(messagesBtn)
                 .switchToActiveElement()
-                .waitForPresence(driver, chatBtns.get(0));
+                .waitForPresence(chatBtns.get(0));
 
         Assert.assertTrue(showAllCourses.isEnabled());
 

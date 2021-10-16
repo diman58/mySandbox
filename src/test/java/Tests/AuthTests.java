@@ -1,37 +1,35 @@
 package Tests;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static Pages.BasePage.getTextValueOfElement;
 import static Pages.IndexPage.*;
 import static Pages.IndexPage.createAccountBtn;
-import static Pages.SignInPage.logIn;
-import static Utils.CommonConditions.getUsersLogin;
+import static Services.StringManager.getTextValueOfElement;
 import static Utils.CommonConditions.myUserName;
 import static Utils.Steps.logIn;
+import static Utils.Steps.logOut;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-public class AuthTests extends BaseTest{
+public class AuthTests {
+
+    private static WebDriver driver;
 
     @Test
     public void logInTest() {
-        logIn(driver);
+        logIn();
 
         assertThat(getTextValueOfElement(usersName),is(equalTo(myUserName)));
     }
 
     @Test(groups = {"cleanBrowser"})
     public void logOutTest() {
-        logIn(driver)
-                .click(usersName)
-                .switchToActiveElement()
-                .click(logOutBtn)
-                .waitForPresence(driver,logInBtn);
+        logIn();
+        logOut();
 
         Assert.assertTrue(createAccountBtn.isDisplayed());
-
     }
 }

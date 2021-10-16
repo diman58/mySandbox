@@ -2,17 +2,20 @@ package Services;
 
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+
+import static Utils.CommonConditions.*;
 
 public class StringManager {
 
+    public static int randomCategory;
+    public static int randomSubCategory;
+    public static int randomHourlyRate;
     public static String getXpath(WebElement element) {
 
         int start = 0;
         String xPath = element.toString();
+        //System.out.println("1 "+xPath);
         char[] chars = xPath.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             if(chars[i]=='/') {
@@ -21,14 +24,14 @@ public class StringManager {
                 }
             }
         }
-
+        //System.out.println("2 "+xPath);
         xPath = xPath.substring(start);
-
+        //System.out.println("# "+xPath);
         if((xPath.charAt(xPath.length()-1)=='\'') || ((xPath.charAt(xPath.length()-1)==']') &&
                 (xPath.charAt(xPath.length()-2)==']'))) {
             xPath = xPath.substring(0,xPath.length()-1);
         }
-
+        //System.out.println("4 "+xPath);
         return xPath;
     }
 
@@ -78,6 +81,63 @@ public class StringManager {
         }
 
         return list1;
+    }
+
+    public static List<String> excludeCategories(List<String> list) {
+        List<String> temp = list.subList(11,list.size());
+        return temp;
+    }
+
+    public static String getValueOfAttr(WebElement element, String attr) {
+        return element.getAttribute(attr);
+    }
+
+    public static String getTextValueOfElement(WebElement element) {
+        return element.getText();
+    }
+
+    public static int getRandomCategory() {
+        randomCategory = new Random().nextInt(11);
+        return randomCategory;
+    }
+
+    public static int getRandomSubCategory() {
+
+        switch (randomCategory) {
+            case 0: randomSubCategory = new Random().nextInt(expectedSubsForAcademicsLanguages.size())+1;
+            break;
+            case 1: randomSubCategory = new Random().nextInt(expectedSubsForBusiness.size())+1;
+            break;
+            case 2: randomSubCategory = new Random().nextInt(expectedSubsForDesign.size())+1;
+            break;
+            case 3: randomSubCategory = 1;
+            break;
+            case 4: randomSubCategory = new Random().nextInt(expectedSubsForHealthFitness.size())+1;
+            break;
+            case 5: randomSubCategory = new Random().nextInt(expectedSubsForLifestyle.size())+1;
+            break;
+            case 6: randomSubCategory = new Random().nextInt(expectedSubsForMarketing.size())+1;
+            break;
+            case 7: randomSubCategory = new Random().nextInt(expectedSubsForMusic.size())+1;
+            break;
+            case 8: randomSubCategory = new Random().nextInt(expectedSubsForPersonalDevelopment.size())+1;
+            break;
+            case 9: randomSubCategory = new Random().nextInt(expectedSubsForPhotography.size())+1;
+            break;
+            case 10: randomSubCategory = new Random().nextInt(expectedSubsForTechnology.size())+1;
+            break;
+
+            default: throw new RuntimeException("problem in switch with random category");
+        }
+        randomSubCategory = randomSubCategory+10;
+        System.out.println("cat "+randomCategory);
+        System.out.println("sub "+randomSubCategory);
+        return randomSubCategory;
+    }
+
+    public static int getRandomHourlyRate() {
+        randomHourlyRate = new Random().nextInt(50);
+        return randomHourlyRate;
     }
 
 }

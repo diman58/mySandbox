@@ -17,7 +17,7 @@ public class IndexPage extends BasePage{
     @FindBy(xpath = "//a[contains(@href,'sign-in')]")
     public static WebElement logInBtn;
 
-    @FindBy(xpath = "//span[text()='Dmitrii']")
+    @FindBy(xpath = "//span[text()='DemoName']")
     public static WebElement usersName;
 
     @FindBy(xpath = "//div[@class='title']")
@@ -70,5 +70,17 @@ public class IndexPage extends BasePage{
 
     @FindBy(xpath = "//a[@class='ant-btn sc-elJkPf lHuZJ sc-kQsIoO sc-hjRWVT gUIxhL']")
     public static WebElement showAllCourses;
+
+    @FindBy(xpath = "//button[@class='ant-btn sc-elJkPf lHuZJ sc-ccSCjj tJlMN']")
+    public static WebElement feedBtn;
+
+    @FindBy(xpath = "//button[@class='ant-btn sc-elJkPf fOscpJ ant-btn-primary']")
+    public static WebElement discoverBtn;
+
+    @FindBy(xpath = "//i[contains(@aria-label,'icon: close')]")
+    public static WebElement xOnTheLeftMenu;
+
+    @FindBy(xpath = "//div[text()='Start Teaching']")
+    public static WebElement startTeachingBtn;
 
 }

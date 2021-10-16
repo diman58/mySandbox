@@ -2,23 +2,34 @@ package Tests;
 
 import Services.DriverManager;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
-public class BaseTest {
+import static Utils.Steps.logIn;
 
-    protected WebDriver driver;
+public class BaseTest{
 
-    @BeforeMethod()
+    protected static WebDriver driver;
+
+
+    @BeforeTest()
     public void browserSetUp() {
         driver = DriverManager.getDriver();
+        logIn();
     }
 
-    @BeforeMethod(alwaysRun = true, onlyForGroups = {"cleanBrowser"})
+    @BeforeMethod(firstTimeOnly = true,onlyForGroups = {"clickBack"})
+    public void before() {
+        driver = DriverManager.getDriver();
+        logIn();
+    }
+
+
+
+    /*@BeforeMethod(alwaysRun = true, onlyForGroups = {"cleanBrowser"})
     public void before() {
         driver = DriverManager.getDriver();
         driver.close();
         driver = DriverManager.getnextDriver();
-    }
+    }*/
 }

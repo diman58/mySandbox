@@ -1,13 +1,11 @@
 package Tests;
 
 import Pages.IndexPage;
-import Services.DriverManager;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
 import static Pages.IndexPage.*;
 import static Services.StringManager.*;
-import static Utils.CommonConditions.expectedListOfTopics;
+import static Utils.CommonConditions.expectedTopics;
 import static Utils.Steps.*;
 import static com.codeborne.selenide.Selenide.$;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,39 +13,41 @@ import static org.hamcrest.Matchers.*;
 
 public class CheckNumberOfTopicsTests extends BaseTest{
 
-   @Test(groups = {"cleanBrowser"})
-    public void checkNumberOfTopicsOnTheLeftSideAfterLogIng() {
-        logIn(driver)
-                .click(menu)
-                .switchToActiveElement();
 
-        assertThat(convertListOfElementsInListOfValues(listOfTopicsOnTheLeftMenu),is(equalTo(expectedListOfTopics)));
+    @Test(groups = {"cleanBrowser"})
+    public void checkNumberOfTopicsOnTheLeftSideAfterLogIng() {
+        logIn()
+                .click(menu)
+                .switchToActiveElement()
+                .waitForPresence(xOnTheLeftMenu);
+
+        assertThat(convertListOfElementsInListOfValues(listOfTopicsOnTheLeftMenu),is(equalTo(expectedTopics)));
     }
 
     @Test
     public void checkNumberOfTopicsOnTheLeftSideBeforeLogIng() {
         new IndexPage(driver).openIndex()
                 .click(menu)
-                .switchToActiveElement();
+                .switchToActiveElement()
+                .waitForPresence(xOnTheLeftMenu);
 
-        assertThat(convertListOfElementsInListOfValues(listOfTopicsOnTheLeftMenu),is(equalTo(expectedListOfTopics)));
+        assertThat(convertListOfElementsInListOfValues(listOfTopicsOnTheLeftMenu),is(equalTo(expectedTopics)));
     }
 
     @Test
     public void checkNumberOfTopicsInTheMidBeforeLogIng() {
         new IndexPage(driver).openIndex();
 
-        assertThat(convertListOfElementsInListOfAttrValues(listOfTopicsInTheMid),is(equalTo(expectedListOfTopics)));
+        assertThat(convertListOfElementsInListOfAttrValues(listOfTopicsInTheMid),is(equalTo(expectedTopics)));
 
     }
 
     @Test(groups = {"cleanBrowser"})
     public void checkNumberOfTopicsInTheMidAfterLogIng() {
-       logIn(driver);
+       logIn();
 
-        assertThat(convertListOfElementsInListOfAttrValues(listOfTopicsInTheMid),is(equalTo(expectedListOfTopics)));
+        assertThat(convertListOfElementsInListOfAttrValues(listOfTopicsInTheMid),is(equalTo(expectedTopics)));
 
     }
 
-    // feed, messages, start teaching, report
 }
