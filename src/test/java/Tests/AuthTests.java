@@ -1,8 +1,10 @@
 package Tests;
 
-import org.openqa.selenium.WebDriver;
+import Services.DriverManager;
+import Services.TestListener;
+import io.qameta.allure.*;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static Pages.IndexPage.*;
 import static Pages.IndexPage.createAccountBtn;
@@ -14,18 +16,39 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-public class AuthTests {
+@Listeners(TestListener.class)
+@Feature("DemoFeature")
+@Story("DemoStory")
+public class AuthTests extends BaseTest {
 
-    private static WebDriver driver;
+    @BeforeMethod
+    public void browsersetUp() {
+        driver = DriverManager.getDriver();
+    }
 
-    @Test
+    @AfterMethod
+    public void browserTearDown() {
+        driver = DriverManager.getNextDriver();
+    }
+
+    @AfterClass
+    public void closeBrowser() {
+        DriverManager.killDriver();
+    }
+
+
+    @Test(description = "logIn and check user's name matches login")
+    @Description("проверка авторизации")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void logInTest() {
         logIn();
 
-        assertThat(getTextValueOfElement(usersName),is(equalTo(myUserName)));
+        assertThat(getTextValueOfElement(usersName), is(equalTo("123"/*myUserName*/)));
     }
 
-    @Test(groups = {"cleanBrowser"})
+    @Test(description = "logOut and check it")
+    @Description("проверка деавторизации")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void logOutTest() {
         logIn();
         logOut();

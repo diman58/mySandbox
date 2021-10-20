@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CommonConditions {
+    public static String url = "https://grinfer.com/";
     public static String login = "market-nord1@mail.ru";
     public static String password = "DemoPasswor4";
     public static String myUserName = "DemoName";

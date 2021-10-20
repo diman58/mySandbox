@@ -17,7 +17,7 @@ public class IndexPage extends BasePage{
     @FindBy(xpath = "//a[contains(@href,'sign-in')]")
     public static WebElement logInBtn;
 
-    @FindBy(xpath = "//span[text()='DemoName']")
+    @FindBy(xpath = "//div[@class='sc-jMMfwr jYgTLU']")
     public static WebElement usersName;
 
     @FindBy(xpath = "//div[@class='title']")
@@ -82,5 +82,8 @@ public class IndexPage extends BasePage{
 
     @FindBy(xpath = "//div[text()='Start Teaching']")
     public static WebElement startTeachingBtn;
+
+    @FindBy(xpath = "//div[@class='sc-krDsej kqgXqB']")
+    public static List<WebElement> topics;
 
 }

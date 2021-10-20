@@ -4,6 +4,7 @@ import Pages.BasePage;
 import Pages.IndexPage;
 import Pages.StartTeachingPage;
 import Tests.BaseTest;
+import io.qameta.allure.Step;
 
 import static Pages.IndexPage.*;
 import static Pages.SignInPage.*;
@@ -13,6 +14,7 @@ import static Utils.CommonConditions.*;
 
 public class Steps extends BaseTest {
 
+    @Step("logIn test account")
     public static BasePage logIn() {
         return new IndexPage(driver).openIndex()
                 .click(logInBtn)
@@ -23,6 +25,7 @@ public class Steps extends BaseTest {
                 .waitForPresence(usersName);
     }
 
+    @Step("logOut test account")
     public static BasePage logOut() {
         return new IndexPage(driver).click(usersName)
                 .switchToActiveElement()
@@ -30,6 +33,7 @@ public class Steps extends BaseTest {
                 .waitForPresence(logInBtn);
     }
 
+    @Step("click Start Teaching on the main page")
     public static BasePage clickStartTeachingBtn() {
         return new IndexPage(driver)
                 .openIndex()
@@ -40,6 +44,7 @@ public class Steps extends BaseTest {
                 .waitForVisibility(startTeachingLogo);
     }
 
+    @Step("fill in Category and Sub")
     public static BasePage fillInCategoryAndSub() {
           return  new StartTeachingPage(driver).click(placeHolders.get(0))
                 .switchToActiveElement()
