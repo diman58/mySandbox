@@ -9,8 +9,6 @@ public class PagesCreater {
         switch (Url) {
             case "https://grinfer.com/": return new IndexPage(driver);
             case "https://grinfer.com/sign-in": return new SignInPage(driver);
-            case "https://grinfer.com/feed": return new FeedPage(driver);
-            case "https://grinfer.com/search": return new FeedSearchPage(driver);
             case "https://grinfer.com/become-a-specialist": return new StartTeachingPage(driver);
             default: throw new RuntimeException("problem in switch with pages");
         }

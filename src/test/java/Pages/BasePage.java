@@ -1,18 +1,15 @@
 package Pages;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import com.google.common.base.Function;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+
 
 import static Services.StringManager.getXpath;
 import static Services.UrlHandler.checkAndReturnPage;
@@ -84,36 +81,6 @@ public abstract class BasePage {
         return this;
     }
 
-    /*public BasePage wait(int time) {
-        try {
-            Thread.sleep(time*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return this;
-    }*/
-
-    public BasePage switchTo(WebElement element) {
-        driver.switchTo().frame(element);
-        return checkAndReturnPage(driver, this);
-    }
-
-    public BasePage swithToWindow(String window) {
-        driver.switchTo().window(window);
-        return this;
-    }
-
-    public BasePage clickByOffSet(WebElement element) {
-        Point s = driver.findElement(By.xpath(getXpath(element))).getLocation();
-        int x = s.getX();
-        int y = s.getY();
-        new Actions(driver).moveByOffset(x, y).click().build().perform();
-        /*
-        JavascriptExecutor executor = (JavascriptExecutor)driver;
-executor.executeScript("$(document.elementFromPoint(x, y)).click();");
-         */
-        return checkAndReturnPage(driver, this);
-    }
 
     public BasePage updatePage() {
         return checkAndReturnPage(driver, this);
@@ -126,17 +93,6 @@ executor.executeScript("$(document.elementFromPoint(x, y)).click();");
                 .pollingEvery(Duration.ofSeconds(2))
                 .ignoring(ElementClickInterceptedException.class, NoSuchElementException.class);
 
-        /*Function<WebDriver, Boolean> function =
-                new Function<WebDriver, Boolean>()
-                {
-                    @Override
-                    public @Nullable Boolean apply(@Nullable WebDriver driver) {
-                        if(driver.findElements(By.xpath(getXpath(element))).size()!=0) {
-                            return true;
-                        }
-                        return false;
-                    }
-                };*/
         webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(getXpath(element))));
         return checkAndReturnPage(driver, this);
     }

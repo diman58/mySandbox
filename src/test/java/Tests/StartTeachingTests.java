@@ -1,30 +1,49 @@
 package Tests;
 
 import Services.DataProviderClass;
+import Services.DriverManager;
+import Services.TestListener;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.*;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.List;
 
 import static Pages.StartTeachingPage.*;
 import static Services.StringManager.*;
 import static Utils.CommonConditions.*;
-import static Utils.Steps.clickStartTeachingBtn;
-import static Utils.Steps.fillInCategoryAndSub;
+import static Utils.Steps.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+@Listeners(TestListener.class)
+@Feature("DemoFeature2")
+@Story("DemoStory2")
 public class StartTeachingTests extends BaseTest {
 
-    @Test
+    @BeforeClass
+    public void setUp() {
+        driver = DriverManager.getDriver();
+        logIn();
+    }
+
+    @AfterClass
+    public void closeBrowser() {
+        DriverManager.killDriver();
+    }
+
+    @Test(description = "open start teaching page")
     public void clickStartTeaching() {
         clickStartTeachingBtn();
 
         Assert.assertTrue(startTeachingLogo.isDisplayed());
     }
 
-    @Test
+    @Test(description = "check list of categories")
+    @Description("проверка списка списка категорий для обучения")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void checkCategories() {
         clickStartTeachingBtn()
                 .click(placeHolders.get(0))
@@ -35,7 +54,10 @@ public class StartTeachingTests extends BaseTest {
     }
 
 
-    @Test(dataProvider = "categoryAndSubsDataProvider", dataProviderClass = DataProviderClass.class)
+    @Test(dataProvider = "categoryAndSubsDataProvider", dataProviderClass = DataProviderClass.class,
+            description = "check list of subs for each category")
+    @Description("проверка списка списка подкатегорий для каждой категории для обучения")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void checkSubsForEachCategory(int category, List<String> expectedSubs) {
         clickStartTeachingBtn()
                 .click(placeHolders.get(0))
@@ -49,7 +71,9 @@ public class StartTeachingTests extends BaseTest {
         assertThat(excludeCategories(convertListOfElementsInListOfValues(options)), is(equalTo(expectedSubs)));
     }
 
-    @Test
+    @Test(description = "enter a value in job title and check it")
+    @Description("проверка поля для ввода названия обучения")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void enterJobtitle() {
         clickStartTeachingBtn()
                 .enterValue(jobTitleFld, myUserName);
@@ -57,7 +81,9 @@ public class StartTeachingTests extends BaseTest {
         assertThat(getValueOfAttr(jobTitleFld, "value"), is(equalTo(myUserName)));
     }
 
-    @Test
+    @Test(description = "enter a value in biography and check it")
+    @Description("проверка поля для ввода биографии об авторе")
+    @Severity(value = SeverityLevel.NORMAL)
     public void enterBiography() {
         clickStartTeachingBtn()
                 .enterValue(biographyFld, biography);
@@ -65,7 +91,9 @@ public class StartTeachingTests extends BaseTest {
         assertThat(getTextValueOfElement(biographyFld), is(equalTo(biography)));
     }
 
-    @Test()
+    @Test(description = "open second start teaching page")
+    @Description("проверка перехода на 2ую страницу анкеты")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void clickNextBtn() {
         clickStartTeachingBtn();
                 fillInCategoryAndSub()
@@ -75,7 +103,9 @@ public class StartTeachingTests extends BaseTest {
         Assert.assertTrue(hourlyRateLbl.isDisplayed());
     }
 
-    @Test()
+    @Test(description = "check switcher is present and active")
+    @Description("проверка наличия свитчера о консультациях")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void checkSwitcher() {
         clickStartTeachingBtn();
         fillInCategoryAndSub()
@@ -86,7 +116,9 @@ public class StartTeachingTests extends BaseTest {
         assertThat(getValueOfAttr(switcher, "aria-checked"), is(equalTo("true")));
     }
 
-    @Test()
+    @Test(description = "turn switcher off and check it")
+    @Description("проверка деактивации свитчера")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void clickSwitcher() {
         clickStartTeachingBtn();
                 fillInCategoryAndSub()
@@ -99,7 +131,9 @@ public class StartTeachingTests extends BaseTest {
 
     }
 
-    @Test()
+    @Test(description = "turn switcher off and check hourly rate is blocked")
+    @Description("проверка блокирования поля стоимость часа при деактивации свитчера")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void checkHorulyRatesBlockedIfSwitcherisOff() {
         clickStartTeachingBtn();
         fillInCategoryAndSub()
@@ -112,7 +146,9 @@ public class StartTeachingTests extends BaseTest {
         assertThat(getValueOfAttr(hourlyRate, "tabindex"), is(equalTo("-1")));
     }
 
-    @Test()
+    @Test(description = "turn switcher off and check time zone is blocked")
+    @Description("проверка блокирования поля часовые пояса при деактивации свитчера")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void checkTimeZonesBlockedIfSwitcherisOff() {
         clickStartTeachingBtn();
         fillInCategoryAndSub()
@@ -125,7 +161,9 @@ public class StartTeachingTests extends BaseTest {
         assertThat(getValueOfAttr(timeZoneAndSchedule.get(0), "tabindex"), is(equalTo("-1")));
     }
 
-    @Test()
+    @Test(description = "check list of hourly rates")
+    @Description("проверка списка стоимости часа")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void checkHourlyRates() {
         clickStartTeachingBtn();
                 fillInCategoryAndSub()
@@ -138,7 +176,9 @@ public class StartTeachingTests extends BaseTest {
         assertThat(convertListOfElementsInListOfValues(options), is(equalTo(expectedHourlyRates)));
     }
 
-    @Test()
+    @Test(description = "check list of time zones")
+    @Description("проверка списка ")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void checkTimeZones() {
         clickStartTeachingBtn();
                 fillInCategoryAndSub()
@@ -151,6 +191,5 @@ public class StartTeachingTests extends BaseTest {
 
         assertThat(convertListOfElementsInListOfValues(options), is(equalTo(expectedTimeZones)));
     }
-
 
 }
