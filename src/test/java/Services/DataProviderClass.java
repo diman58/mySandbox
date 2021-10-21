@@ -2,6 +2,10 @@ package Services;
 
 import org.testng.annotations.DataProvider;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static Utils.CommonConditions.*;
 
 public class DataProviderClass {
@@ -23,17 +27,15 @@ public class DataProviderClass {
         };
     }
 
-    @DataProvider(name = "123")
-    public static Object[][] asd() {
+    @DataProvider(name = "hourlyRatesDataProvider")
+    public static Object[][] tensOfHourlyRatesDataProvider() {
         return new Object[][] {
-                {1},
-                {2},
-                {3},
-                {4},
-                {5},
-                {6},
-                {7},
-                {8}
+                {0,10, expectedHourlyRates.subList(0,10)},
+                {10,20, expectedHourlyRates.subList(10,20)},
+                {20,30, expectedHourlyRates.subList(20,30)},
+                {30,40, expectedHourlyRates.subList(30,40)},
+                {40,50, expectedHourlyRates.subList(40,50)},
+
         };
     }
 }

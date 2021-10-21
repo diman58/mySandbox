@@ -3,13 +3,13 @@ package Tests;
 import Services.DriverManager;
 import Services.TestListener;
 import io.qameta.allure.*;
+import org.hamcrest.Matchers;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import static Pages.IndexPage.*;
 import static Pages.IndexPage.createAccountBtn;
+import static Pages.IndexPage.usersName;
 import static Services.StringManager.getTextValueOfElement;
-import static Utils.CommonConditions.myUserName;
 import static Utils.Steps.logIn;
 import static Utils.Steps.logOut;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -37,22 +37,22 @@ public class AuthTests extends BaseTest {
     }
 
 
-    @Test(description = "logIn and check user's name matches login")
-    @Description("проверка авторизации")
+    @Test(description = "Log in certain account", priority = 0)
+    @Description("Check user's name is equal user's account name")
     @Severity(value = SeverityLevel.BLOCKER)
     public void logInTest() {
         logIn();
 
-        assertThat(getTextValueOfElement(usersName), is(equalTo("123"/*myUserName*/)));
+        checkUsersNameIsEqualUserAccName();
     }
 
-    @Test(description = "logOut and check it")
-    @Description("проверка деавторизации")
-    @Severity(value = SeverityLevel.BLOCKER)
+    @Test(description = "Log out", priority = 0)
+    @Description("Check createAccountBtn is displayed")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void logOutTest() {
         logIn();
         logOut();
 
-        Assert.assertTrue(createAccountBtn.isDisplayed());
+        checkCreateAccountBtnIsDisplayed();
     }
 }

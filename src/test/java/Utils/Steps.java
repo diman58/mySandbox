@@ -19,8 +19,8 @@ public class Steps extends BaseTest {
         return new IndexPage(driver).openIndex()
                 .click(logInBtn)
                 .waitForVisibility(emailFld)
-                .enterValue(emailFld,login)
-                .enterValue(passwordFld,password)
+                .enterValue(emailFld, login)
+                .enterValue(passwordFld, password)
                 .click(logIn)
                 .waitForPresence(usersName);
     }
@@ -46,14 +46,15 @@ public class Steps extends BaseTest {
 
     @Step("fill in Category and Sub")
     public static BasePage fillInCategoryAndSub() {
-          return  new StartTeachingPage(driver).click(placeHolders.get(0))
+        return new StartTeachingPage(driver)
+                .click(placeHolders.get(0))
                 .switchToActiveElement()
                 .waitForClickability(options.get(getRandomCategory()))
                 .click(options.get(randomCategory))
                 .click(placeHolders.get(1))
                 .switchToActiveElement()
-                //.waitForClickability(options.get(getRandomSubCategory())) //падает
                 .fluentWait(options.get(getRandomSubCategory()))
+                .switchToActiveElement()
                 .click(options.get(randomSubCategory));
     }
 }
