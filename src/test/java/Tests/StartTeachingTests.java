@@ -1,11 +1,10 @@
 package Tests;
 
+import Pages.StartTeachingPage;
 import Services.DataProviderClass;
 import Services.DriverManager;
 import Services.TestListener;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.*;
-import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.util.List;
@@ -34,15 +33,17 @@ public class StartTeachingTests extends BaseTest {
         DriverManager.killDriver();
     }
 
-    @Test(description = "open start teaching page")
+    @Test(description = "Go to startTeachingPage", priority = 0)
+    @Description("Check startTeachingLogo on startTeachingPage is displayed")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void clickStartTeaching() {
         clickStartTeachingBtn();
 
-        Assert.assertTrue(startTeachingLogo.isDisplayed());
+        checkStartTeachingLogoIsDisplayed();
     }
 
-    @Test(description = "check list of categories")
-    @Description("проверка списка списка категорий для обучения")
+    @Test(description = "List of categories on startTeachingPage", priority = 1)
+    @Description("Check list of categories in startTeachingPage is equal to expected")
     @Severity(value = SeverityLevel.BLOCKER)
     public void checkCategories() {
         clickStartTeachingBtn()
@@ -50,13 +51,13 @@ public class StartTeachingTests extends BaseTest {
                 .switchToActiveElement()
                 .waitForVisibility(options.get(10));
 
-        assertThat(convertListOfElementsInListOfValues(options), is(equalTo(expectedCategories)));
+        checkListOfCategoriesIsEqualExpectedCategories();
     }
 
 
     @Test(dataProvider = "categoryAndSubsDataProvider", dataProviderClass = DataProviderClass.class,
-            description = "check list of subs for each category")
-    @Description("проверка списка списка подкатегорий для каждой категории для обучения")
+            description = "List of subs for each category", priority = 1)
+    @Description("Check list of subs for each category is equal to expected")
     @Severity(value = SeverityLevel.BLOCKER)
     public void checkSubsForEachCategory(int category, List<String> expectedSubs) {
         clickStartTeachingBtn()
@@ -68,31 +69,12 @@ public class StartTeachingTests extends BaseTest {
                 .click(placeHolders.get(1))
                 .switchToActiveElement();
 
-        assertThat(excludeCategories(convertListOfElementsInListOfValues(options)), is(equalTo(expectedSubs)));
+        checkListOfSubsIsEqualExpectedSubsForEachCategory(expectedSubs);
     }
 
-    @Test(description = "enter a value in job title and check it")
-    @Description("проверка поля для ввода названия обучения")
-    @Severity(value = SeverityLevel.BLOCKER)
-    public void enterJobtitle() {
-        clickStartTeachingBtn()
-                .enterValue(jobTitleFld, myUserName);
 
-        assertThat(getValueOfAttr(jobTitleFld, "value"), is(equalTo(myUserName)));
-    }
-
-    @Test(description = "enter a value in biography and check it")
-    @Description("проверка поля для ввода биографии об авторе")
-    @Severity(value = SeverityLevel.NORMAL)
-    public void enterBiography() {
-        clickStartTeachingBtn()
-                .enterValue(biographyFld, biography);
-
-        assertThat(getTextValueOfElement(biographyFld), is(equalTo(biography)));
-    }
-
-    @Test(description = "open second start teaching page")
-    @Description("проверка перехода на 2ую страницу анкеты")
+    @Test(description = "Go to second part of startTeachingPage", priority = 0)
+    @Description("Check that user can go to second part of startTeachinPage and hourlyRateLbl is displayed")
     @Severity(value = SeverityLevel.BLOCKER)
     public void clickNextBtn() {
         clickStartTeachingBtn();
@@ -100,39 +82,59 @@ public class StartTeachingTests extends BaseTest {
                 .enterValue(jobTitleFld, myUserName)
                 .click(nextBtn);
 
-        Assert.assertTrue(hourlyRateLbl.isDisplayed());
+        checkHourlyRateLblIsDisplayed();
     }
 
-    @Test(description = "check switcher is present and active")
-    @Description("проверка наличия свитчера о консультациях")
+    @Test(description = "Switcher is on", priority = 1)
+    @Description("Check switcher on second part of startTeachingPage is on")
     @Severity(value = SeverityLevel.BLOCKER)
     public void checkSwitcher() {
         clickStartTeachingBtn();
         fillInCategoryAndSub()
                 .enterValue(jobTitleFld, myUserName)
                 .click(nextBtn)
-                .waitForClickability(switcher);
+                .fluentWait(switcher);
 
-        assertThat(getValueOfAttr(switcher, "aria-checked"), is(equalTo("true")));
+        checkSwitcherIsOn();
     }
 
-    @Test(description = "turn switcher off and check it")
-    @Description("проверка деактивации свитчера")
+    @Test(description = "Turn switcher off", priority = 1)
+    @Description("Check switcher on second part of startTeachingPage is possible to off")
     @Severity(value = SeverityLevel.BLOCKER)
     public void clickSwitcher() {
         clickStartTeachingBtn();
                 fillInCategoryAndSub()
                 .enterValue(jobTitleFld, myUserName)
                 .click(nextBtn)
-                .waitForClickability(switcher)
+                .fluentWait(switcher)
                 .click(switcher);
 
-        assertThat(getValueOfAttr(switcher, "aria-checked"), is(equalTo("false")));
+        checkSwitcherIsOffAfterClick();
 
     }
 
-    @Test(description = "turn switcher off and check hourly rate is blocked")
-    @Description("проверка блокирования поля стоимость часа при деактивации свитчера")
+    @Test(description = "Enter a value in jobTitleFld", priority = 2)
+    @Description("Check jobTitleFld accepts values and they are equal to entered")
+    @Severity(value = SeverityLevel.BLOCKER)
+    public void enterJobtitle() {
+        clickStartTeachingBtn()
+                .enterValue(jobTitleFld, myUserName);
+
+        checkJobTitleFldAcceptsStringValueAndValidateIt();
+    }
+
+    @Test(description = "Enter a value in biographyFld", priority = 2)
+    @Description("Check biographyFld accepts values and they are equal to entered")
+    @Severity(value = SeverityLevel.NORMAL)
+    public void enterBiography() {
+        clickStartTeachingBtn()
+                .enterValue(biographyFld, biography);
+
+        checkBiographyFldAcceptsStringValueAndValidateIt();
+    }
+
+    @Test(description = "hourlyRate is blocked when switcher is off", priority = 1)
+    @Description("Check hourlyRate is blocked when switcher is off")
     @Severity(value = SeverityLevel.BLOCKER)
     public void checkHorulyRatesBlockedIfSwitcherisOff() {
         clickStartTeachingBtn();
@@ -143,11 +145,11 @@ public class StartTeachingTests extends BaseTest {
                 .click(switcher)
                 .fluentWait(hourlyRate);
 
-        assertThat(getValueOfAttr(hourlyRate, "tabindex"), is(equalTo("-1")));
+        checkHourlyRateIsBlockedAfterSwitcherIsOff();
     }
 
-    @Test(description = "turn switcher off and check time zone is blocked")
-    @Description("проверка блокирования поля часовые пояса при деактивации свитчера")
+    @Test(description = "timeZoneAndSchedule is blocked when switcher is off", priority = 1)
+    @Description("Check timeZoneAndSchedule is blocked when switcher is off")
     @Severity(value = SeverityLevel.BLOCKER)
     public void checkTimeZonesBlockedIfSwitcherisOff() {
         clickStartTeachingBtn();
@@ -158,11 +160,11 @@ public class StartTeachingTests extends BaseTest {
                 .click(switcher)
                 .fluentWait(timeZoneAndSchedule.get(0));
 
-        assertThat(getValueOfAttr(timeZoneAndSchedule.get(0), "tabindex"), is(equalTo("-1")));
+        checkTimeZoneAndScheduleIsBlockedAfterSwitcherIsOff();
     }
 
-    @Test(description = "check list of hourly rates")
-    @Description("проверка списка стоимости часа")
+    @Test(description = "List of hourly rates", priority = 2)
+    @Description("Check list of Hourly rates is equal to expected")
     @Severity(value = SeverityLevel.BLOCKER)
     public void checkHourlyRates() {
         clickStartTeachingBtn();
@@ -171,13 +173,15 @@ public class StartTeachingTests extends BaseTest {
                 .click(nextBtn)
                 .waitForClickability(hourlyRate)
                 .click(hourlyRate)
-                .switchToActiveElement();
+                .switchToActiveElement()
+                .fluentWait(options.get(options.size()-1));
 
-        assertThat(convertListOfElementsInListOfValues(options), is(equalTo(expectedHourlyRates)));
+
+        checkListOfHourlyRatesIsEqualExpectedHourlyRates();
     }
 
-    @Test(description = "check list of time zones")
-    @Description("проверка списка ")
+    @Test(description = "List of time zones", priority = 2)
+    @Description("Check list of Time zones is equal to expected")
     @Severity(value = SeverityLevel.BLOCKER)
     public void checkTimeZones() {
         clickStartTeachingBtn();
@@ -187,9 +191,26 @@ public class StartTeachingTests extends BaseTest {
                 .waitForClickability(timeZones)
                 .click(timeZones)
                 .switchToActiveElement()
-                .waitForVisibility(options.get(options.size() - 1));
+                .fluentWait(options.get(options.size() - 1));
 
-        assertThat(convertListOfElementsInListOfValues(options), is(equalTo(expectedTimeZones)));
+        checkListOfTimeZonesIsEqualExpectedTimeZones();
     }
 
+    /*@Test
+    public void cc() {
+        clickStartTeachingBtn();
+        new StartTeachingPage(driver).click(placeHolders.get(0))
+                .switchToActiveElement()
+                .waitForClickability(options.get(0*//*getRandomCategory()*//*))
+                .click(options.get(0*//*randomCategory*//*))
+                .click(placeHolders.get(1))
+                .switchToActiveElement()
+                //.waitForClickability(options.get(getRandomSubCategory())) //падает
+                .fluentWait(options.get(18))
+                .click(options.get(18));
+    }*/
+
+    /*cat 8sub 16
+    cat 7sub 12
+    cat 8sub 11*/
 }

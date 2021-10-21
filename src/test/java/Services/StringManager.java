@@ -1,7 +1,11 @@
 package Services;
 
+import io.qameta.allure.Allure;
 import org.openqa.selenium.WebElement;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static Utils.CommonConditions.*;
@@ -11,6 +15,16 @@ public class StringManager {
     public static int randomCategory;
     public static int randomSubCategory;
     public static int randomHourlyRate;
+    public static FileWriter writer;
+
+    static {
+        try {
+            writer = new FileWriter("notes.txt", true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static String getXpath(WebElement element) {
 
         int start = 0;
@@ -104,34 +118,42 @@ public class StringManager {
     public static int getRandomSubCategory() {
 
         switch (randomCategory) {
-            case 0: randomSubCategory = new Random().nextInt(expectedSubsForAcademicsLanguages.size())+1;
+            case 0: randomSubCategory = (new Random().nextInt(expectedSubsForAcademicsLanguages.size()))+1;
             break;
-            case 1: randomSubCategory = new Random().nextInt(expectedSubsForBusiness.size())+1;
+            case 1: randomSubCategory = (new Random().nextInt(expectedSubsForBusiness.size()))+1;
             break;
-            case 2: randomSubCategory = new Random().nextInt(expectedSubsForDesign.size())+1;
+            case 2: randomSubCategory = (new Random().nextInt(expectedSubsForDesign.size()))+1;
             break;
             case 3: randomSubCategory = 1;
             break;
-            case 4: randomSubCategory = new Random().nextInt(expectedSubsForHealthFitness.size())+1;
+            case 4: randomSubCategory = (new Random().nextInt(expectedSubsForHealthFitness.size()))+1;
             break;
-            case 5: randomSubCategory = new Random().nextInt(expectedSubsForLifestyle.size())+1;
+            case 5: randomSubCategory = (new Random().nextInt(expectedSubsForLifestyle.size()))+1;
             break;
-            case 6: randomSubCategory = new Random().nextInt(expectedSubsForMarketing.size())+1;
+            case 6: randomSubCategory = (new Random().nextInt(expectedSubsForMarketing.size()))+1;
             break;
-            case 7: randomSubCategory = new Random().nextInt(expectedSubsForMusic.size())+1;
+            case 7: randomSubCategory = (new Random().nextInt(expectedSubsForMusic.size()))+1;
             break;
-            case 8: randomSubCategory = new Random().nextInt(expectedSubsForPersonalDevelopment.size())+1;
+            case 8: randomSubCategory = (new Random().nextInt(expectedSubsForPersonalDevelopment.size()))+1;
             break;
-            case 9: randomSubCategory = new Random().nextInt(expectedSubsForPhotography.size())+1;
+            case 9: randomSubCategory = (new Random().nextInt(expectedSubsForPhotography.size()))+1;
             break;
-            case 10: randomSubCategory = new Random().nextInt(expectedSubsForTechnology.size())+1;
+            case 10: randomSubCategory = (new Random().nextInt(expectedSubsForTechnology.size()))+1;
             break;
 
             default: throw new RuntimeException("problem in switch with random category");
         }
+
         randomSubCategory = randomSubCategory+10;
-        System.out.println("cat "+randomCategory);
-        System.out.println("sub "+randomSubCategory);
+
+        try {
+            writer.write("cat "+randomCategory);
+            writer.write("sub "+randomSubCategory);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return randomSubCategory;
     }
 
