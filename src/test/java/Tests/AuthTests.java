@@ -36,8 +36,12 @@ public class AuthTests extends BaseTest {
         DriverManager.killDriver();
     }
 
+    @BeforeGroups(groups = {"xyz"})
+    public void lllgggg(){
+        System.out.println("1342534656");
+    }
 
-    @Test(description = "Log in certain account", priority = 0)
+    @Test(description = "Log in certain account", priority = 0, groups = {"xyz"})
     @Description("Check user's name is equal user's account name")
     @Severity(value = SeverityLevel.BLOCKER)
     public void logInTest() {

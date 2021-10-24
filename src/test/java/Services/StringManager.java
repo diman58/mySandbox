@@ -112,6 +112,7 @@ public class StringManager {
 
     public static int getRandomCategory() {
         randomCategory = new Random().nextInt(11);
+        System.out.println(randomCategory);
         return randomCategory;
     }
 
@@ -145,14 +146,15 @@ public class StringManager {
         }
 
         randomSubCategory = randomSubCategory+10;
+        System.out.println(randomSubCategory);
 
-        try {
+        /*try {
             writer.write("cat "+randomCategory);
             writer.write("sub "+randomSubCategory);
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return randomSubCategory;
     }

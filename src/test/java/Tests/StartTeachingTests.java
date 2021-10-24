@@ -1,5 +1,6 @@
 package Tests;
 
+import Pages.BasePage;
 import Pages.StartTeachingPage;
 import Services.DataProviderClass;
 import Services.DriverManager;
@@ -54,7 +55,6 @@ public class StartTeachingTests extends BaseTest {
         checkListOfCategoriesIsEqualExpectedCategories();
     }
 
-
     @Test(dataProvider = "categoryAndSubsDataProvider", dataProviderClass = DataProviderClass.class,
             description = "List of subs for each category", priority = 1)
     @Description("Check list of subs for each category is equal to expected")
@@ -93,7 +93,7 @@ public class StartTeachingTests extends BaseTest {
         fillInCategoryAndSub()
                 .enterValue(jobTitleFld, myUserName)
                 .click(nextBtn)
-                .fluentWait(switcher);
+                .waitForPresence(switcher);
 
         checkSwitcherIsOn();
     }
@@ -106,8 +106,8 @@ public class StartTeachingTests extends BaseTest {
                 fillInCategoryAndSub()
                 .enterValue(jobTitleFld, myUserName)
                 .click(nextBtn)
-                .fluentWait(switcher)
-                .click(switcher);
+                .waitForPresence(switcher)
+                .jsClick(switcher);
 
         checkSwitcherIsOffAfterClick();
 
@@ -141,9 +141,9 @@ public class StartTeachingTests extends BaseTest {
         fillInCategoryAndSub()
                 .enterValue(jobTitleFld, myUserName)
                 .click(nextBtn)
-                .waitForClickability(switcher)
-                .click(switcher)
-                .fluentWait(hourlyRate);
+                .waitForPresence(switcher)
+                .jsClick(switcher)
+                .waitForPresence(hourlyRate);
 
         checkHourlyRateIsBlockedAfterSwitcherIsOff();
     }
@@ -156,9 +156,9 @@ public class StartTeachingTests extends BaseTest {
         fillInCategoryAndSub()
                 .enterValue(jobTitleFld, myUserName)
                 .click(nextBtn)
-                .waitForClickability(switcher)
-                .click(switcher)
-                .fluentWait(timeZoneAndSchedule.get(0));
+                .waitForPresence(switcher)
+                .jsClick(switcher)
+                .waitForPresence(timeZoneAndSchedule.get(0));
 
         checkTimeZoneAndScheduleIsBlockedAfterSwitcherIsOff();
     }
@@ -191,7 +191,7 @@ public class StartTeachingTests extends BaseTest {
                 .waitForClickability(timeZones)
                 .click(timeZones)
                 .switchToActiveElement()
-                .fluentWait(options.get(options.size() - 1));
+                .scrollInto(options.get(options.size() - 1));
 
         checkListOfTimeZonesIsEqualExpectedTimeZones();
     }
@@ -199,18 +199,22 @@ public class StartTeachingTests extends BaseTest {
     /*@Test
     public void cc() {
         clickStartTeachingBtn();
-        new StartTeachingPage(driver).click(placeHolders.get(0))
+        new StartTeachingPage(driver)
+                .click(placeHolders.get(0))
                 .switchToActiveElement()
-                .waitForClickability(options.get(0*//*getRandomCategory()*//*))
-                .click(options.get(0*//*randomCategory*//*))
+                .scrollInto(options.get(getRandomCategory()))
+                .actionClick(options.get(randomCategory))
+                //.waitForClickability(options.get(getRandomCategory()))
+                //.click(options.get(randomCategory))
                 .click(placeHolders.get(1))
                 .switchToActiveElement()
-                //.waitForClickability(options.get(getRandomSubCategory())) //падает
-                .fluentWait(options.get(18))
-                .click(options.get(18));
+                .fluentWait(options.get(getRandomSubCategory()))
+                .switchToActiveElement()
+                //.click(options.get(randomSubCategory));
+                .scrollInto(options.get(randomSubCategory))
+                .actionClick(options.get(randomSubCategory));
     }*/
-
-    /*cat 8sub 16
-    cat 7sub 12
-    cat 8sub 11*/
 }
+
+
+

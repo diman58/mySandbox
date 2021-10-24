@@ -49,12 +49,28 @@ public class Steps extends BaseTest {
         return new StartTeachingPage(driver)
                 .click(placeHolders.get(0))
                 .switchToActiveElement()
+                .scrollInto(options.get(getRandomCategory()))
+                .actionClick(options.get(randomCategory))
+                //.waitForClickability(options.get(getRandomCategory()))
+                //.click(options.get(randomCategory))
+                .click(placeHolders.get(1))
+                .switchToActiveElement()
+                .waitForPresence(options.get(getRandomSubCategory()))
+                .switchToActiveElement()
+                //.click(options.get(randomSubCategory));
+                .scrollInto(options.get(randomSubCategory))
+                .actionClick(options.get(randomSubCategory));
+        /*return new StartTeachingPage(driver)
+                .click(placeHolders.get(0))
+                .switchToActiveElement()
                 .waitForClickability(options.get(getRandomCategory()))
                 .click(options.get(randomCategory))
                 .click(placeHolders.get(1))
                 .switchToActiveElement()
                 .fluentWait(options.get(getRandomSubCategory()))
                 .switchToActiveElement()
-                .click(options.get(randomSubCategory));
+                //.click(options.get(randomSubCategory));
+                .scrollInto(options.get(randomSubCategory))
+                .actionClick(options.get(randomSubCategory));*/
     }
 }
