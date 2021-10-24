@@ -1,6 +1,7 @@
 package Pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -114,5 +115,19 @@ public abstract class BasePage {
         executor.executeScript("arguments[0].click();", element);
         return checkAndReturnPage(driver, this);
     }
+
+    public BasePage actionClick(WebElement element) {
+        Actions action = new Actions(driver);
+        action.moveToElement(element);
+        action.perform();
+        element.click();
+        return checkAndReturnPage(driver,this);
+    }
+
+    public BasePage scrollInto(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        return checkAndReturnPage(driver, this);
+    }
+
 
 }
