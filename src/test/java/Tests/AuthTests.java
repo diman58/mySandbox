@@ -1,15 +1,25 @@
 package Tests;
 
+import Pages.BasePage;
+import Pages.IndexPage;
+import Pages.SignInPage;
 import Services.DriverManager;
 import Services.TestListener;
 import io.qameta.allure.*;
 import org.hamcrest.Matchers;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import static Pages.IndexPage.createAccountBtn;
-import static Pages.IndexPage.usersName;
+import static Pages.IndexPage.*;
+import static Pages.IndexPage.loggedInPopUp;
+import static Pages.SignInPage.*;
 import static Services.StringManager.getTextValueOfElement;
+import static Services.StringManager.getXpath;
+import static Utils.CommonConditions.login;
+import static Utils.CommonConditions.password;
 import static Utils.Steps.logIn;
 import static Utils.Steps.logOut;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,11 +46,6 @@ public class AuthTests extends BaseTest {
         DriverManager.killDriver();
     }
 
-    @BeforeGroups(groups = {"xyz"})
-    public void lllgggg(){
-        System.out.println("1342534656");
-    }
-
     @Test(description = "Log in certain account", priority = 0, groups = {"xyz"})
     @Description("Check user's name is equal user's account name")
     @Severity(value = SeverityLevel.BLOCKER)
@@ -59,4 +64,5 @@ public class AuthTests extends BaseTest {
 
         checkCreateAccountBtnIsDisplayed();
     }
+
 }

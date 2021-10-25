@@ -8,13 +8,14 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.ArrayList;
-
 
 import static Services.StringManager.getXpath;
 import static Services.UrlHandler.checkAndReturnPage;
 import static Services.UrlHandler.getDefaultUrl;
+import static com.codeborne.selenide.Selenide.$;
 
 public abstract class BasePage {
     protected static WebDriver driver;
@@ -88,13 +89,23 @@ public abstract class BasePage {
     }
 
 
-    public BasePage fluentWait(WebElement element) {
+    public BasePage fluentWaitClick(WebElement element) {
         Wait<WebDriver> webDriverWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(30))
                 .pollingEvery(Duration.ofSeconds(2))
                 .ignoring(ElementClickInterceptedException.class, NoSuchElementException.class);
 
         webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(getXpath(element))));
+        return checkAndReturnPage(driver, this);
+    }
+
+    public BasePage fluentWaitPresence(WebElement element) {
+        Wait<WebDriver> webDriverWait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(10))
+                .pollingEvery(Duration.ofMillis(300))
+                .ignoring(ElementClickInterceptedException.class, NoSuchElementException.class);
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getXpath(element))));
         return checkAndReturnPage(driver, this);
     }
 
@@ -121,7 +132,7 @@ public abstract class BasePage {
         action.moveToElement(element);
         action.perform();
         element.click();
-        return checkAndReturnPage(driver,this);
+        return checkAndReturnPage(driver, this);
     }
 
     public BasePage scrollInto(WebElement element) {
@@ -129,5 +140,10 @@ public abstract class BasePage {
         return checkAndReturnPage(driver, this);
     }
 
+
+    public BasePage upload() {
+        File file = $("#cv").uploadFile(new File("src/main/resources/1635078357347.JPEG"));
+        return this;
+    }
 
 }

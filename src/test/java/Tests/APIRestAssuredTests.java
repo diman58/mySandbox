@@ -14,21 +14,5 @@ import static io.restassured.RestAssured.when;
 
 public class APIRestAssuredTests extends BaseTest{
 
-    /*@BeforeMethod
-    public void initTest() {
-        RestAssured.baseURI = "https://grinfer.com/";
-    }
-
-    //@Test(groups = "APITests")
-    @Test
-    public void checkStatusCode() {
-        Response response = RestAssured.when().get().andReturn();
-
-    }
-
-    @Test
-    public void check() {
-
-    }*/
 
 }

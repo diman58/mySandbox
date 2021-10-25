@@ -1,6 +1,7 @@
 package Tests;
 
 import Pages.BasePage;
+import Pages.IndexPage;
 import Pages.StartTeachingPage;
 import Services.DataProviderClass;
 import Services.DriverManager;
@@ -10,12 +11,12 @@ import org.testng.annotations.*;
 
 import java.util.List;
 
+import static Pages.IndexPage.startTeachingBtn;
 import static Pages.StartTeachingPage.*;
 import static Services.StringManager.*;
 import static Utils.CommonConditions.*;
 import static Utils.Steps.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 @Listeners(TestListener.class)
@@ -174,7 +175,7 @@ public class StartTeachingTests extends BaseTest {
                 .waitForClickability(hourlyRate)
                 .click(hourlyRate)
                 .switchToActiveElement()
-                .fluentWait(options.get(options.size()-1));
+                .fluentWaitClick(options.get(options.size()-1));
 
 
         checkListOfHourlyRatesIsEqualExpectedHourlyRates();
@@ -196,24 +197,6 @@ public class StartTeachingTests extends BaseTest {
         checkListOfTimeZonesIsEqualExpectedTimeZones();
     }
 
-    /*@Test
-    public void cc() {
-        clickStartTeachingBtn();
-        new StartTeachingPage(driver)
-                .click(placeHolders.get(0))
-                .switchToActiveElement()
-                .scrollInto(options.get(getRandomCategory()))
-                .actionClick(options.get(randomCategory))
-                //.waitForClickability(options.get(getRandomCategory()))
-                //.click(options.get(randomCategory))
-                .click(placeHolders.get(1))
-                .switchToActiveElement()
-                .fluentWait(options.get(getRandomSubCategory()))
-                .switchToActiveElement()
-                //.click(options.get(randomSubCategory));
-                .scrollInto(options.get(randomSubCategory))
-                .actionClick(options.get(randomSubCategory));
-    }*/
 }
 
 

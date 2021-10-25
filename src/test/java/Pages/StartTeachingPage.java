@@ -32,9 +32,6 @@ public class StartTeachingPage extends BasePage{
     @FindBy(xpath = "//button[@type='submit']")
     public static WebElement nextBtn;
 
-    @FindBy(xpath = "//span[@class='info']")
-    public static WebElement info;
-
     @FindBy(xpath = "//label[@for='form_priceTierId']")
     public static WebElement hourlyRateLbl;
 
@@ -44,15 +41,10 @@ public class StartTeachingPage extends BasePage{
     @FindBy(xpath = "//div[@id='form_timezone']")
     public static WebElement timeZones;
 
-    @FindBy(xpath = "//div[@title='09:00']")
-    public static List<WebElement> timeZone;
-
     @FindBy(xpath = "//button[@role='switch']")
     public static WebElement switcher;
 
     @FindBy(xpath = "//div[@data-__meta='[object Object]' and @aria-haspopup='true']")
     public static List<WebElement> timeZoneAndSchedule;
-
-
 
 }
