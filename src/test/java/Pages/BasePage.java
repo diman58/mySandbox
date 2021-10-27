@@ -43,9 +43,9 @@ public abstract class BasePage {
     }
 
 
-    public String getLocator(WebElement element) {
+    /*public String getLocator(WebElement element) {
         return getXpath(element);
-    }
+    }*/
 
     public BasePage waitForPresence(WebElement element) {
         new WebDriverWait(driver, 10)
