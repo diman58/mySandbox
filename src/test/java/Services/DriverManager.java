@@ -9,6 +9,7 @@ public class DriverManager {
     private static WebDriver driver;
 
     public static WebDriver getDriver() {
+        System.setProperty("webdriver.chromedriver.driver", "C:\\Users\\Dmitrii_Tsarev\\Drivers\\GCDriver\\chromedriver.exe");
         if(driver==null) {
             setDriver();
         }
