@@ -32,7 +32,7 @@ public class BaseTest{
 
     @Step("Check that user's name is equal user's account name")
     public static void checkUsersNameIsEqualUserAccName() {
-        assertThat(getTextValueOfElement(usersName), is(equalTo("ExpectedFail")));
+        assertThat(getTextValueOfElement(usersName), is(equalTo("ExpectedFail1")));
     }
 
     @Step("Check createAccountBtn is displayed")
