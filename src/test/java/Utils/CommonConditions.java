@@ -73,7 +73,7 @@ public class CommonConditions {
             "Tier 41\n" + "$260 per hour", "Tier 42\n" + "$270 per hour", "Tier 43\n" + "$280 per hour",
             "Tier 44\n" + "$290 per hour", "Tier 45\n" + "$300 per hour", "Tier 46\n" + "$320 per hour",
             "Tier 47\n" + "$340 per hour", "Tier 48\n" + "$360 per hour", "Tier 49\n" + "$380 per hour",
-            "Tier 50\n" + "$400 per hour"));
+            "Tier 50\n" + "$400 per hour", "Tier 51\n" + "$500 per hour", "Tier 52\n" + "$600 per hour"));
 
     public static List<String> expectedTimeZones = new ArrayList<>(Arrays.asList("UTC+00 (Africa/Abidjan)",
             "UTC+00 (Africa/Accra)", "UTC+00 (Africa/Bamako)", "UTC+00 (Africa/Banjul)", "UTC+00 (Africa/Bissau)",

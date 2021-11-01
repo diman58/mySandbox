@@ -181,7 +181,7 @@ public class StartTeachingTests extends BaseTest {
         checkListOfHourlyRatesIsEqualExpectedHourlyRates();
     }
 
-    @Test(description = "List of time zones", priority = 2)
+    /*@Test(description = "List of time zones", priority = 2)
     @Description("Check list of Time zones is equal to expected")
     @Severity(value = SeverityLevel.BLOCKER)
     public void checkTimeZones() {
@@ -195,7 +195,7 @@ public class StartTeachingTests extends BaseTest {
                 .scrollInto(options.get(options.size() - 1));
 
         checkListOfTimeZonesIsEqualExpectedTimeZones();
-    }
+    }*/
 
 }
 
