@@ -15,7 +15,7 @@ import static Utils.Steps.*;
 @Story("DemoStory3")
 public class CheckNumberOfTopicsTests extends BaseTest{
 
-    @BeforeMethod
+    /*@BeforeMethod
     public void browsersetUp() {
         driver = DriverManager.getDriver();
     }
@@ -54,10 +54,10 @@ public class CheckNumberOfTopicsTests extends BaseTest{
                 .waitForVisibility(topics.get(topics.size()-1));
 
         checkListOfTopicsOnTheLeftMenuIsEqualExpectedTopicsForUnauthUser();
-    }
+    }*/
 
 
-    @Test(description = "List of topics in the mid before logging", priority = 2)
+    /*@Test(description = "List of topics in the mid before logging", priority = 2)
     @Description("Check list of topics in the mid is equal to expected for unauthorized user")
     @Severity(value = SeverityLevel.NORMAL)
     public void checkNumberOfTopicsInTheMidBeforeLogIng() {
@@ -75,6 +75,6 @@ public class CheckNumberOfTopicsTests extends BaseTest{
 
         checkListOfTopicsInTheMidIsEqualExpectedTopicsForAuthUser();
 
-    }
+    }*/
 
 }

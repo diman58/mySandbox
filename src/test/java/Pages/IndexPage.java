@@ -17,10 +17,10 @@ public class IndexPage extends BasePage {
     @FindBy(xpath = "//a[contains(@href,'sign-in')]")
     public static WebElement logInBtn;
 
-    @FindBy(xpath = "//div[@class='sc-jMMfwr jYgTLU']")
+    @FindBy(xpath = "//div[@class='sc-nst8f5-3 dJsUTm']")
     public static WebElement usersName;
 
-    @FindBy(xpath = "//div[@class='title']")
+    @FindBy(xpath = "//button[@title='Grinfer - Log out']")
     public static WebElement logOutBtn;
 
     @FindBy(xpath = "//button[contains(@class,'fOscpJ')]")
@@ -38,7 +38,7 @@ public class IndexPage extends BasePage {
     @FindBy(xpath = "//div[text()='Start Teaching']")
     public static WebElement startTeachingBtn;
 
-    @FindBy(xpath = "//div[@class='sc-krDsej kqgXqB']")
+    @FindBy(xpath = "//a[@class='sc-8lxa00-9 iMNWlz']")
     public static List<WebElement> topics;
 
     @FindBy(xpath = "//span[text()='Logged in!']")

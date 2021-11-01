@@ -46,7 +46,7 @@ public class AuthTests extends BaseTest {
         DriverManager.killDriver();
     }
 
-    @Test(description = "Log in certain account", priority = 0, groups = {"xyz"})
+    @Test(description = "Log in certain account", priority = 0)
     @Description("Check user's name is equal user's account name")
     @Severity(value = SeverityLevel.BLOCKER)
     public void logInTest() {

@@ -29,7 +29,7 @@ public class Steps extends BaseTest {
     public static BasePage logOut() {
         return new IndexPage(driver).click(usersName)
                 .switchToActiveElement()
-                .click(logOutBtn)
+                .jsClick(logOutBtn)
                 .waitForPresence(logInBtn);
     }
 
